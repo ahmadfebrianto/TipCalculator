@@ -1,6 +1,10 @@
 package com.example.tipcalculator
 
+import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.example.tipcalculator.databinding.ActivityMainBinding
@@ -16,10 +20,14 @@ class MainActivity : AppCompatActivity() {
         binding.tvFinalCost.text = getString(R.string.final_cost, "0.00")
         binding.edtCost.addTextChangedListener {
             val value = binding.edtCost.text
-            binding.btCalculate.isEnabled = value.isNotEmpty()
+            if (value != null) {
+                binding.btCalculate.isEnabled = value.isNotEmpty()
+            }
         }
         binding.btCalculate.setOnClickListener { calculateTip() }
-
+        binding.tilCost.setOnKeyListener { view, keyCode, _ ->
+            handleKeyEvent(view, keyCode)
+        }
     }
 
 
@@ -41,5 +49,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun Double.round(decimals: Int = 2): Double {
         return "%.${decimals}f".format(this).toDouble()
+    }
+
+    private fun handleKeyEvent(view: View, keyCode: Int): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_ENTER) {
+            // Hide the keyboard
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+            return true
+        }
+        return false
     }
 }
