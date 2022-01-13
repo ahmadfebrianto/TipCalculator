@@ -13,6 +13,7 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:hint="@string/cost_of_service"
+        android:inputType="numberDecimal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -70,16 +71,19 @@
         android:id="@+id/bt_calculate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:enabled="false"
         android:text="@string/calculate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sw_round_up_tip" />
 
     <TextView
-        android:layout_width="60dp"
-        android:text="@string/final_cost"
+        android:id="@+id/tv_final_cost"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:text="@string/final_cost"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bt_calculate" />
 </androidx.constraintlayout.widget.ConstraintLayout>
